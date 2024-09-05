@@ -30,6 +30,7 @@ Implementation using C or pyhton code
 
 
 ## PROGRAM:
+```
 #include<stdio.h>
 #include <string.h>
 #include<conio.h>
@@ -66,9 +67,13 @@ printf("%c",plain[i]);
 }
 return 0;
 }
+```
 ## OUTPUT:
 OUTPUT:
+
 Simulating Caesar Cipher
+
+
 ![Screenshot 2024-09-02 103756](https://github.com/user-attachments/assets/6f0440d6-c4ac-4885-9eb0-f8919f3be712)
 
 
