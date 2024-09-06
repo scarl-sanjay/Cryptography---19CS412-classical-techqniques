@@ -394,45 +394,80 @@ The Vigenere cipher is a method of encrypting alphabetic text by using a series 
 
 
 ## PROGRAM:
-PROGRAM:
-#include<stdio.h> #include<string.h>
-//FunctiontoperformVigenereencryption voidvigenereEncrypt(char*text,constchar*key){ inttextLen= strlen(text);
-intkeyLen=strlen(key); for(inti =0;i< textLen;i++){ charc =text[i]; if(c>='A'&&c<='Z'){
-//Encryptuppercaseletters
-text[i]=((c-'A'+key[i%keyLen]-'A')%26)+'A';
-}else if(c>='a'&&c<='z'){
-//Encryptlowercaseletters
-text[i]=((c-'a'+key[i%keyLen]-'A')%26)+'a';
+``` c
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+void encipher();
+void decipher();
+int main()
+{
+int choice;
+while(1)
+{
+printf("\n1. Encrypt Text");
+printf("\n2. Decrypt Text");
+printf("\n3. Exit");
+printf("\n\nEnter Your Choice : ");
+scanf("%d",&choice);
+if(choice == 3)
+exit(0);
+else if(choice == 1)
+encipher();
+else if(choice == 2)
+decipher();
+else
+printf("Please Enter Valid Option.");
 }
 }
+void encipher()
+{
+unsigned int i,j;
+char input[50],key[10];
+printf("\n\nEnter Plain Text: ");
+scanf("%s",input);
+printf("\nEnter Key Value: ");
+scanf("%s",key);
+printf("\nResultant Cipher Text: ");
+for(i=0,j=0;i<strlen(input);i++,j++)
+{
+if(j>=strlen(key))
+{ j=0;
 }
-//FunctiontoperformVigeneredecryption voidvigenereDecrypt(char*text,constchar*key){ inttextLen= strlen(text);
-intkeyLen=strlen(key);
-
-for(inti =0;i< textLen;i++){ charc =text[i]; if(c>='A'&&c<='Z'){
-//Decryptuppercaseletters
- 
-text[i]=((c-'A'-(key[i% keyLen]-'A') +26) %26)+ 'A';
-}else if(c>='a'&&c<='z'){
-//Decryptlowercaseletters
-text[i]=((c-'a'-(key[i% keyLen]-'A') +26) %26)+ 'a';
+printf("%c",65+(((toupper(input[i])-65)+(toupper(key[j])-
+65))%26));
+}}
+void decipher()
+{
+unsigned int i,j;
+char input[50],key[10];
+int value;
+printf("\n\nEnter Cipher Text: ");
+scanf("%s",input);
+printf("\n\nEnter the key value: ");
+scanf("%s",key);
+for(i=0,j=0;i<strlen(input);i++,j++)
+{
+if(j>=strlen(key))
+{ j=0; }
+value = (toupper(input[i])-64)-(toupper(key[j])-64);
+if( value < 0)
+{ value = value * -1;
 }
+printf("%c",65 + (value % 26));
 }
+return 0;
 }
-intmain(){
-constchar *key="KEY";//Replacewithyourdesired key
-char message[]= "Thisisasecretmessage.";//Replace withyourmessage
-//Encrypt themessage vigenereEncrypt(message,key); printf("EncryptedMessage:%s\n",message);
-//Decrypt themessage backtotheoriginal vigenereDecrypt(message,key); printf("DecryptedMessage:%s\n",message); Return 0;
+``` 
 
 ## OUTPUT:
 OUTPUT :
 
 Simulating Vigenere Cipher
 
+![Screenshot 2024-09-06 140358](https://github.com/user-attachments/assets/d0e58e9e-caad-4b64-a361-a15d9ac4de9f)
 
-Input Message : SecurityLaboratory
-Encrypted Message : NMIYEMKCNIQVVROWXC Decrypted Message : SECURITYLABORATORY
+
 ## RESULT:
 The program is executed successfully
 
