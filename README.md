@@ -497,57 +497,57 @@ ALGORITHM DESCRIPTION:
 In the rail fence cipher, the plaintext is written downwards and diagonally on successive "rails" of an imaginary fence, then moving up when we reach the bottom rail. When we reach the top rail, the message is written downwards again until the whole plaintext is written out. The message is then read off in rows.
 
 ## PROGRAM:
+```c
+#include <stdio.h>
+#include <string.h>
 
-PROGRAM:
-#include<stdio.h> #include<string.h> #include<stdlib.h> main()
-{
-int i,j,len,rails,count,code[100][1000]; char str[1000];
-printf("Enter a Secret Message\n"); gets(str);
-len=strlen(str);
-printf("Enter number of rails\n"); scanf("%d",&rails); for(i=0;i<rails;i++)
-{
-for(j=0;j<len;j++)
-{
-code[i][j]=0;
-}
-}
-count=0; j=0;
-while(j<len)
-{
-if(count%2==0)
-{
-for(i=0;i<rails;i++)
-{
-//strcpy(code[i][j],str[j]);
-code[i][j]=(int)str[j]; j++;
-}
+int main() {
+    int i, j, len, rails, count, dir;
+    char str[1000];
+    int code[100][1000] = {0};  // Initialize the entire array to 0
 
-}
-else
-{
- 
-for(i=rails-2;i>0;i--)
-{
-code[i][j]=(int)str[j]; j++;
-}
-}
+    printf("Enter a Secret Message:\n");
+    gets(str);  
+    len = strlen(str);
 
-count++;
-}
+    printf("Enter number of rails:\n");
+    scanf("%d", &rails);
 
-for(i=0;i<rails;i++)
-{
-for(j=0;j<len;j++)
-{
-if(code[i][j]!=0) printf("%c",code[i][j]);
+    count = 0;
+    i = 0;
+    dir = 1;  
+
+    for (j = 0; j < len; j++) {
+        code[i][j] = str[j];
+        
+        // Change direction if we reach the top or bottom rail
+        if (i == 0) {
+            dir = 1;
+        } else if (i == rails - 1) {
+            dir = -1;
+        }
+
+        i += dir;
+    }
+
+    printf("Encrypted Message:\n");
+
+    // Print the encrypted message
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            if (code[i][j] != 0) {
+                printf("%c", code[i][j]);
+            }
+        }
+    }
+
+    printf("\n");
+    return 0;
 }
-}
-printf("\n");
-}
+```
 ## OUTPUT:
-OUTPUT:
-Enter a Secret Message wearediscovered
-Enter number of rails 2
-waeicvrderdsoee
+
+![Screenshot 2024-09-06 141811](https://github.com/user-attachments/assets/42ff41b7-edcc-443f-ada3-c49153476d13)
+
 ## RESULT:
 The program is executed successfully
